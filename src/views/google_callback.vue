@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { DOMAIN_API } from '@/constants';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router'
@@ -16,7 +17,7 @@ export default {
     console.log(route.query.scope);
 
     async function redirectToServer() {
-      const response = await axios.get(`http://127.0.0.1:8000/api/auth/google/callback?code=${code}&&scope=${scope}`);
+      const response = await axios.get(`${DOMAIN_API}/auth/google/callback?code=${code}&&scope=${scope}`);
       if(response.status == 200) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         router.push({ name: "Home" });

@@ -1,3 +1,4 @@
+import { DOMAIN_API } from "@/constants";
 import axios from "axios";
 
 async function reservations(data) {
@@ -5,7 +6,7 @@ async function reservations(data) {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
-  const response = await axios.post('http://localhost:8000/api/movies/reservations', data, { headers: header });
+  const response = await axios.post(`${DOMAIN_API}/movies/reservations`, data, { headers: header });
   if(response.status == 200) {
     return response.data == 'ok';
   }
@@ -21,7 +22,7 @@ async function paymentVnPay(amount) {
     'Content-Type': 'application/json'
   }
   const response = await axios.post(
-    'http://127.0.0.1:8000/api/payment/vn-pay',
+    `${DOMAIN_API}/payment/vn-pay`,
     JSON.stringify(data),
     {
       headers: header
@@ -40,7 +41,7 @@ async function paymentMomo(amount) {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
-  const response = await axios.post('http://127.0.0.1:8000/api/payment/momo', data, { headers: header });
+  const response = await axios.post(`${DOMAIN_API}/payment/momo`, data, { headers: header });
   if(response.status == 200) {
     
     window.location.href = response.data.momo_url;
@@ -57,7 +58,7 @@ async function getNameSeat(data) {
   };
 
   const response = await axios.post(
-    'http://127.0.0.1:8000/api/movies/getBill',
+    `${DOMAIN_API}/movies/getBill`,
     body,
     { headers: header }
   );
@@ -73,13 +74,13 @@ async function createTicket(data) {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
-  const response = await axios.post('http://127.0.0.1:8000/api/transactions/createTicket', data, { headers: header });
+  const response = await axios.post(`${DOMAIN_API}/transactions/createTicket`, data, { headers: header });
   console.log(response.status);
   console.log(response.data);
 }
 
 async function getTicketByUser(userId) {
-  const response = await axios.get(`http://127.0.0.1:8000/api/transactions/get-ticket/${userId}`);
+  const response = await axios.get(`${DOMAIN_API}/transactions/get-ticket/${userId}`);
   console.log(response.status);
   console.log(response.data);
   if(response.status == 200) {

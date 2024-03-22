@@ -1,3 +1,4 @@
+import { DOMAIN_API } from '@/constants';
 import axios from 'axios'
 
 async function sendEmail(emailTo, subject, content) {
@@ -12,7 +13,7 @@ async function sendEmail(emailTo, subject, content) {
   }
 
   const response = await axios.post(
-    'http://localhost:8000/api/email',
+    `${URL}/email`,
     data,
     {
       headers: header
@@ -27,7 +28,7 @@ async function sendEmail(emailTo, subject, content) {
 }
 
 async function verifyEmail(email) {
-  const response = await axios.post(`http://localhost:8000/api/users/verify-email/${email}`);
+  const response = await axios.post(`${DOMAIN_API}/users/verify-email/${email}`);
   if(response.status == 200) {
     return response.data.status === 'found';
   }

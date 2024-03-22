@@ -1,3 +1,4 @@
+import { DOMAIN_API } from "@/constants";
 import axios from "axios";
 import { ref } from "vue";
 
@@ -7,7 +8,7 @@ const moviePopular = ref(null);
 
 // Now Playing
 async function fetchNowPlaying() {
-  const response = await axios.get('http://127.0.0.1:8000/api/movies/getNowPlaying');
+  const response = await axios.get(`${DOMAIN_API}/movies/getNowPlaying`);
   if(response.status == 200) {
     movieNowPlaying.value = response.data;
     return true;
@@ -24,7 +25,7 @@ function getNowPlaying() {
 
 // Up Comming
 async function fetchUpcoming() {
-  const response = await axios.get('http://127.0.0.1:8000/api/movies/getUpcoming');
+  const response = await axios.get(`${DOMAIN_API}/movies/getUpcoming`);
   if(response.status == 200) {
     movieUpcoming.value = response.data;
     return true;
@@ -41,7 +42,7 @@ function getUpcoming() {
 
 // Get popular
 async function fetchPopular() {
-  const response = await axios.get('http://127.0.0.1:8000/api/movies/getPopular');
+  const response = await axios.get(`${DOMAIN_API}/movies/getPopular`);
   if(response.status == 200) {
     moviePopular.value = response.data;
     return true;
@@ -68,7 +69,7 @@ function extractYouTubeId(url) {
 }
 
 async function fetchWeekday() {
-  const response = await axios.get('http://127.0.0.1:8000/api/movies/getWeekday');
+  const response = await axios.get(`${DOMAIN_API}/movies/getWeekday`);
   if(response.status == 200) {
     return response.data;
   }
@@ -76,7 +77,7 @@ async function fetchWeekday() {
 }
 
 async function fetchShowTimeByWeekdayMovie(idMovie, idWeekday) {
-  const response = await axios.get(`http://127.0.0.1:8000/api/movies/getShowtimeMovieId/${idWeekday}/${idMovie}`);
+  const response = await axios.get(`${DOMAIN_API}/movies/getShowtimeMovieId/${idWeekday}/${idMovie}`);
   if(response.status == 200) {
     return response.data;
   }
@@ -84,7 +85,7 @@ async function fetchShowTimeByWeekdayMovie(idMovie, idWeekday) {
 }
 
 async function fetchAllShowtime(idWeekday) {
-  const response = await axios.get(`http://127.0.0.1:8000/api/movies/getShowtime/${idWeekday}`);
+  const response = await axios.get(`${DOMAIN_API}/movies/getShowtime/${idWeekday}`);
   if(response.status == 200) {
     // console.log(response.data.hasOwnProperty('null'));
     if(response.data) return response.data;

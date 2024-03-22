@@ -138,6 +138,7 @@ import { ref } from 'vue'
 import { useRouter } from "vue-router"
 import { useUser } from "@/composables/useUser"
 import axios from 'axios';
+import { DOMAIN_API } from '@/constants';
 
 export default {
   setup() {
@@ -178,7 +179,7 @@ export default {
     }
 
     async function onLoginWithGoogle() {
-      const response = await axios.get('http://localhost:8000/api/auth/google');
+      const response = await axios.get(`${DOMAIN_API}/auth/google`);
       if(response.status == 200) {
         window.location.href = response.data.url;
       }

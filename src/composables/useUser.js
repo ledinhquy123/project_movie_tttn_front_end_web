@@ -1,3 +1,4 @@
+import { DOMAIN_API } from "@/constants";
 import axios from "axios";
 
 function getUser() {
@@ -24,7 +25,7 @@ async function registerUser(fullName, email, password) {
       password: password
     };
     const response = await axios.post(
-      'http://127.0.0.1:8000/api/users/create',
+      `${DOMAIN_API}/users/create`,
       body,
       { header }
     )
@@ -50,7 +51,7 @@ async function loginUser(email, password) {
       password: password
     };
     const response = await axios.post(
-      'http://127.0.0.1:8000/api/users/login',
+      `${DOMAIN_API}/users/login`,
       body,
       { header }
     )
@@ -88,7 +89,7 @@ async function changPass(email, password) {
     'Content-Type': 'application/json'
   };
   const response = await axios.put(
-    'http://127.0.0.1:8000/api/users/change-pass',
+    `${DOMAIN_API}/users/change-pass`,
     data,
     { headers: header }
   );
@@ -102,7 +103,7 @@ async function changPass(email, password) {
 }
 
 async function getCommentByMovie(idMovie) {
-  const response = await axios.get(`http://127.0.0.1:8000/api/movies/get-movie-comments/${idMovie}`);
+  const response = await axios.get(`${DOMAIN_API}/movies/get-movie-comments/${idMovie}`);
   if(response.status == 200) {
     return response.data.comments;
   }
@@ -119,7 +120,7 @@ async function checkComment(userId, movieId) {
     'Content-Type': 'application/json'
   };
   const response = await axios.post(
-    'http://127.0.0.1:8000/api/movies/check-user-comment',
+    `${DOMAIN_API}/movies/check-user-comment`,
     data,
     { headers: header}
   );
@@ -141,7 +142,7 @@ async function createComment(userId, movieId, content) {
     'Content-Type': 'application/json'
   };
   await axios.post(
-    'http://127.0.0.1:8000/api/movies/create-movie-comment',
+    `${DOMAIN_API}/movies/create-movie-comment`,
     data,
     { headers: header}
   );
@@ -158,7 +159,7 @@ async function updateUser(idUser, name, email) {
     'Content-Type': 'application/json'
   };
   const response = await axios.post(
-    'http://127.0.0.1:8000/api/users/update',
+    `${DOMAIN_API}/users/update`,
     data,
     { headers: header}
   );
