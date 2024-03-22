@@ -17,11 +17,10 @@ export default {
     console.log(route.query.scope);
 
     async function redirectToServer() {
-      const response = await axios.get(`${DOMAIN_API}/auth/google/callback?code=${code}&&scope=${scope}`);
+      const response = await axios.get(`${DOMAIN_API}/auth/google/callback?code=${code}&scope=${scope}`);
       if(response.status == 200) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         router.push({ name: "Home" });
-
       }
     }
     redirectToServer();
