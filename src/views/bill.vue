@@ -44,6 +44,10 @@
                           <td>{{ seatQuantity }}</td>
                         </tr>
                         <tr>
+                          <th>Combos:</th>
+                          <td>{{ combosName }}</td>
+                        </tr>
+                        <tr>
                           <th>Người đặt:</th>
                           <td>{{ getUser().name }}</td>
                         </tr>
@@ -54,7 +58,7 @@
                       <table class="info_seat_info_table">
                         <tr>
                           <th>Tổng tiền:</th>
-                          <td>{{ seatQuantity * 60 }}.000</td>
+                          <td>{{ seatQuantity * 60 + comboQuantity * 45 }}.000</td>
                         </tr>
                       </table>
                     </div>
@@ -119,6 +123,8 @@ export default {
     const err = ref(null);
     const selectedSeat = JSON.parse(route.query.selectedSeat);
     const showtime = JSON.parse(route.query.showtime);
+    const combosName = JSON.parse(route.query.combosName);
+    const comboQuantity = JSON.parse(route.query.comboQuantity);
     const isPending = ref(false);
     const seatsName = ref('');
     const seatQuantity = ref(0);
@@ -134,6 +140,8 @@ export default {
 
     console.log(showtime);
     console.log(selectedSeat);
+    console.log(combosName);
+    console.log(comboQuantity);
     async function fetchNameSeat(data) {
       isPending.value = true;
       const dataName = await getNameSeat(data);
@@ -162,18 +170,18 @@ export default {
     }
 
     async function onSubmit() {
-      const data = {
-        'user_id': getUser().id,
-        'screen_name': showtime.screen_name,
-        'seats_name': seatsName.value,
-        'movie_id': showtime.movie_id,
-        'showdate': date.name,
-        'show_time': showtime.start_time,
-        'total_price': seatQuantity.value * 60,
-        'transaction_type_id': 2
-      };  
-
       if(paymentName.value == 'vnpay') {
+        const data = {
+          'user_id': getUser().id,
+          'screen_name': showtime.screen_name,
+          'seats_name': seatsName.value,
+          'movie_id': showtime.movie_id,
+          'showdate': date.name,
+          'show_time': showtime.start_time,
+          'total_price': seatQuantity.value * 60 + comboQuantity * 45,
+          'transaction_type_id': 1,
+          'combos_name': combosName
+        };  
         err.value = null;
         
         // Cập nhật status ghế
@@ -184,6 +192,17 @@ export default {
         await paymentVnPay(JSON.stringify(seatQuantity.value * 60 * 1000));
 
       }else if(paymentName.value == 'momo') {
+        const data = {
+          'user_id': getUser().id,
+          'screen_name': showtime.screen_name,
+          'seats_name': seatsName.value,
+          'movie_id': showtime.movie_id,
+          'showdate': date.name,
+          'show_time': showtime.start_time,
+          'total_price': seatQuantity.value * 60 + comboQuantity * 45,
+          'transaction_type_id': 2,
+          'combos_name': combosName
+        };  
         err.value = null;
         
         // Cập nhật status ghế
@@ -198,7 +217,7 @@ export default {
       }
     }
 
-    return { getUser, seatQuantity, seatsName, err, onSubmit, amount, paymentName, selectedPayment, showtime }
+    return { getUser, seatQuantity, seatsName, err, onSubmit, amount, paymentName, selectedPayment, showtime, combosName, comboQuantity }
   }
 }
 </script>

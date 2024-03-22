@@ -163,6 +163,13 @@ const routes = [
     component: () => import("@/views/movie_page.vue")
   },
 
+  {
+    path: "/combo",
+    name: "Combo",
+    beforeEnter: access,
+    component: () => import("@/views/combo.vue")
+  },
+
   { 
     path: '/:pathMatch(.*)*', 
     meta: {

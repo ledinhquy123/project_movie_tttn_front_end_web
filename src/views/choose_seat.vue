@@ -109,7 +109,7 @@ export default {
 
     async function onContinue() {
       if(selectedSeat.includes(true)) {
-        router.push({ name: 'Bill', query: { showtime: JSON.stringify(showtime), selectedSeat: JSON.stringify(selectedSeat) } })
+        router.push({ name: 'Combo', query: { showtime: JSON.stringify(showtime), selectedSeat: JSON.stringify(selectedSeat) } })
       } else {
         alert('Bạn chưa chọn ghế.')
       }
