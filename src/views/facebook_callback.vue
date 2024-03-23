@@ -12,11 +12,13 @@ export default {
     const route = useRoute();
     const client_id = route.query.client_id;
     const redirect_uri = route.query.redirect_uri;
+    const scope = route.query.scope;
+    const response_type = route.query.response_type;
     const router = useRouter();
     console.log(route.query);
 
     async function redirectToServer() {
-      const response = await axios.get(`${DOMAIN_API}/auth/facebook/callback?client_id=${client_id}&redirect_uri=${redirect_uri}`);
+      const response = await axios.get(`${DOMAIN_API}/auth/facebook/callback?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}$response_type=${response_type}`);
       if(response.status == 200) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         router.push({ name: "Home" });
