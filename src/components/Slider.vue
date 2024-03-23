@@ -26,15 +26,15 @@
                 <div class="carousel-inner">
                   <!-- Ảnh một -->
                   <div class="carousel-item active">
-                    <img :src="require('@/assets/images/anhPhim1.png')" class="d-block w-100" alt="Los Angeles" style="width:100%; max-height: 375px;">
+                    <img :src="require('@/assets/images/slider1.png')" class="d-block w-100" alt="Los Angeles" style="width:100%; max-height: 375px;">
                   </div>
                   <!-- Ảnh hai -->
                   <div class="carousel-item">
-                    <img :src="require('@/assets/images/anhPhim1.png')" class="d-block w-100" alt="Chicago" style="width:100%; max-height: 375px">
+                    <img :src="require('@/assets/images/slider1.png')" class="d-block w-100" alt="Chicago" style="width:100%; max-height: 375px">
                   </div>
                   <!-- Ảnh ba -->
                   <div class="carousel-item">
-                    <img :src="require('@/assets/images/anhPhim1.png')" class="d-block w-100" alt="New York" style="width:100%; max-height: 375px">
+                    <img :src="require('@/assets/images/slider1.png')" class="d-block w-100" alt="New York" style="width:100%; max-height: 375px">
                   </div>
 
                 </div>
