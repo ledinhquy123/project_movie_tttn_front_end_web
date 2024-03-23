@@ -58,6 +58,7 @@ export default {
     async function onSubmit() {
       isPending.value = true;
       const checkVerifyEmail = await verifyEmail(email.value);
+      console.log('onSubmit');
       
       if(checkVerifyEmail) {
         const response = await sendEmail(email.value, 'Mã xác nhận', randomNumber);

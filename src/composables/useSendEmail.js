@@ -13,12 +13,14 @@ async function sendEmail(emailTo, subject, content) {
   }
 
   const response = await axios.post(
-    `${URL}/email`,
+    `${DOMAIN_API}/email`,
     data,
     {
       headers: header
     }
   );
+  console.log(response.status);
+  console.log(response.data);
 
   if(response.status == 200) {
     alert('Mã đã được gửi về.');

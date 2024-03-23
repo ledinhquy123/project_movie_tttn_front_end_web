@@ -13,7 +13,7 @@
             <div class="container container_main_detailpage_showtime">
               <div class="ctai_main_detailpage_showtime_showtime">
 
-                <button @click="onWeekday(weekday.id, index)" type="button" :class="classShowtime[index]" v-for="(weekday, index) in weekdays" :key="weekday.id">
+                <button @click="onWeekday(weekday, index)" type="button" :class="classShowtime[index]" v-for="(weekday, index) in weekdays" :key="weekday.id">
                   <div>
                       <p class="p_showtime1">{{ weekday.name }}</p>
                     </div>
@@ -86,15 +86,24 @@ export default {
     }
     fetchDataWeekday();
 
-    async function onWeekday(idWeekday, index) {
-      dataAllShowtime.value = await fetchAllShowtime(idWeekday);
-      console.log(dataAllShowtime.value);
+    async function onWeekday(weekday, index) {
+      const currentTime = new Date();
+      var day = currentTime.getDate();
+      var month = currentTime.getMonth() + 1; 
+      var year = currentTime.getFullYear();
+      const timeNow = year + '-' + month + '-' + day;
 
-      for(let i = 0; i < classShowtime.length; i++) {
-        if(i != index) classShowtime[i] = 'showtime_item';
-        else classShowtime[i] = 'showtime_item selected_weekday';
+      if(new Date(weekday.date) >= new Date(timeNow)) {
+        dataAllShowtime.value = await fetchAllShowtime(weekday.id);
+        console.log(dataAllShowtime.value);
+  
+        for(let i = 0; i < classShowtime.length; i++) {
+          if(i != index) classShowtime[i] = 'showtime_item';
+          else classShowtime[i] = 'showtime_item selected_weekday';
+        }
+      }else {
+        alert('Ngày không hợp lệ');
       }
-      console.log(idWeekday, index);
     }
 
     function onChooseShowTime(showtime) {
