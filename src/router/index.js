@@ -112,6 +112,15 @@ const routes = [
   },
 
   {
+    path: "/auth/facebook/callback",
+    name: "AuthFacebookCallback",
+    meta: {
+      layout: "auth"
+    },
+    component: () => import("@/views/facebook_callback.vue")
+  },
+
+  {
     path: "/bill",
     name: "Bill",
     beforeEnter: access,

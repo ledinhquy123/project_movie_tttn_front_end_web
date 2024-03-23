@@ -103,10 +103,10 @@
                 Tiếp tục với Google
               </button>
               <!-- Bỏ link Facebook -->
-              <a href="#" class="btnn facebook">
+              <button @click="onLoginWithFacebook" type="button" class="btnn facebook">
                 <img width="20" :src="require('@/assets/images/facebook.svg')" title="">
                 Tiếp tục với Facebook
-              </a>
+              </button>
               <!-- Bỏ link Apple -->
               <a href="#" class="btnn apple">
                 <svg version="1.1" height="20" width="20" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -185,8 +185,18 @@ export default {
       }
     }
 
+    async function onLoginWithFacebook() {
+      const response = await axios.get(`${DOMAIN_API}/auth/facebook`)
+      console.log(response.status);
+      console.log(response.data);
+      if(response.status == 200) {
+        window.location.href = response.data.url;
+      }
+    }
+
     return {
       onLoginWithGoogle,
+      onLoginWithFacebook,
       isPending,
       email,
       password,
